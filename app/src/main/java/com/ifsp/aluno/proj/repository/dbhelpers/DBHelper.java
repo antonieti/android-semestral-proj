@@ -1,11 +1,11 @@
-package com.example.aluno.proj.repository.dbhelpers;
+package com.ifsp.aluno.proj.repository.dbhelpers;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.aluno.proj.repository.enums.HabitEnum;
-import com.example.aluno.proj.repository.enums.TaskEnum;
+import com.ifsp.aluno.proj.repository.enums.HabitEnum;
+import com.ifsp.aluno.proj.repository.enums.TaskEnum;
 
 public class DBHelper extends SQLiteOpenHelper {
 

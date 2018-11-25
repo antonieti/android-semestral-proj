@@ -1,4 +1,4 @@
-package com.example.aluno.proj;
+package com.ifsp.aluno.proj;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.aluno.proj.repository.dao.HabitDAO;
+import com.ifsp.aluno.proj.repository.dao.HabitDAO;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -17,7 +17,6 @@ import java.util.List;
 
 import br.edu.ifsp.cmp.entities.Habit;
 import br.edu.ifsp.cmp.repository.HabitRepository;
-import br.edu.ifsp.cmp.repository.TaskRepository;
 
 public class MyAdapterHabit extends RecyclerView.Adapter<MyAdapterHabit.MyViewHolder> {
 

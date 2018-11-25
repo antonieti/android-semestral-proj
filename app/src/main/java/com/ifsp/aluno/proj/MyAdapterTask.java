@@ -1,4 +1,4 @@
-package com.example.aluno.proj;
+package com.ifsp.aluno.proj;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.CompoundButton;
 
 
 
-import com.example.aluno.proj.repository.dao.TaskDAO;
+import com.ifsp.aluno.proj.repository.dao.TaskDAO;
 
 import org.apache.commons.lang3.StringUtils;
 

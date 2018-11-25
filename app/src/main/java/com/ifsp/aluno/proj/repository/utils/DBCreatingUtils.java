@@ -1,4 +1,4 @@
-package com.example.aluno.proj.repository.utils;
+package com.ifsp.aluno.proj.repository.utils;
 
 import android.content.Context;
 

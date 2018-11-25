@@ -1,4 +1,4 @@
-package com.example.aluno.proj;
+package com.ifsp.aluno.proj;
 
 import android.content.DialogInterface;
 import android.content.Intent;

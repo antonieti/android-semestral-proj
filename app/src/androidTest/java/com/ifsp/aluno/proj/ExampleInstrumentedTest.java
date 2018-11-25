@@ -1,4 +1,4 @@
-package com.example.aluno.proj;
+package com.ifsp.aluno.proj;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.aluno.proj", appContext.getPackageName());
+        assertEquals("com.ifsp.aluno.proj", appContext.getPackageName());
     }
 }

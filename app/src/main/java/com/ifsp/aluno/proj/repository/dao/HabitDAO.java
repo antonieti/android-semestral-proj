@@ -1,13 +1,12 @@
-package com.example.aluno.proj.repository.dao;
+package com.ifsp.aluno.proj.repository.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.aluno.proj.repository.dbhelpers.DBHelper;
-import com.example.aluno.proj.repository.enums.HabitEnum;
-import com.example.aluno.proj.repository.enums.TaskEnum;
+import com.ifsp.aluno.proj.repository.dbhelpers.DBHelper;
+import com.ifsp.aluno.proj.repository.enums.HabitEnum;
 
 import java.util.ArrayList;
 import java.util.List;
