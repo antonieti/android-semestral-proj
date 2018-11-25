@@ -39,7 +39,7 @@ public class HabitActivity extends AppCompatActivity {
         this.calText = findViewById(R.id.habit_calTab);
         this.taskText = findViewById(R.id.habit_taskTab);
         mRecyclerView = (RecyclerView) findViewById(R.id.habit_recycler);
-        mAdapter = new MyAdapterHabit(habits,this);
+        mAdapter = new MyAdapterHabit(habits);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);

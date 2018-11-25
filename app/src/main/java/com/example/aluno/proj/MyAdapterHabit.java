@@ -40,7 +40,7 @@ public class MyAdapterHabit extends RecyclerView.Adapter<MyAdapterHabit.MyViewHo
                     Habit habitSearched = null;
 
                     habitSearched = findHabit(habit.getText().toString());
-                    habitSearched.imcrementProgressCount();
+                    habitSearched.incrementProgressCount();
                     progressBar.setProgress(habitSearched.getProgressCount());
                     if(habitSearched.getGoalCount()==habitSearched.getProgressCount()){
                         habitList.remove(habitSearched);
