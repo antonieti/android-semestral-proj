@@ -3,6 +3,10 @@ package com.example.aluno.proj;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +35,37 @@ public class HabitActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     public static List<Habit> habits = new ArrayList<Habit>();
+    private static final int SENSOR_SENSITIVITY = 4;
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +75,7 @@ public class HabitActivity extends AppCompatActivity {
         this.calText = findViewById(R.id.habit_calTab);
         this.taskText = findViewById(R.id.habit_taskTab);
         mRecyclerView = (RecyclerView) findViewById(R.id.habit_recycler);
-        mAdapter = new MyAdapterHabit(habits,this);
+        mAdapter = new MyAdapterHabit(habits);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -76,6 +112,7 @@ public class HabitActivity extends AppCompatActivity {
                 final EditText habitNameTxt = new EditText(context);
                 habitNameTxt.setHint("Nome");
                 layout.addView(habitNameTxt); // Notice this is an add method
+
 
                 final EditText goalCountTxt = new EditText(context);
                 goalCountTxt.setHint("Meta");

@@ -11,9 +11,10 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
-import java.util.Objects;
+
 
 import br.edu.ifsp.cmp.entities.Habit;
+import br.edu.ifsp.cmp.repository.TaskRepository;
 
 public class MyAdapterHabit extends RecyclerView.Adapter<MyAdapterHabit.MyViewHolder> {
 
@@ -40,7 +41,7 @@ public class MyAdapterHabit extends RecyclerView.Adapter<MyAdapterHabit.MyViewHo
                     Habit habitSearched = null;
 
                     habitSearched = findHabit(habit.getText().toString());
-                    habitSearched.imcrementProgressCount();
+                    habitSearched.incrementProgressCount();
                     progressBar.setProgress(habitSearched.getProgressCount());
                     if(habitSearched.getGoalCount()==habitSearched.getProgressCount()){
                         habitList.remove(habitSearched);

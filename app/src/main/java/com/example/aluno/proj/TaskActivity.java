@@ -6,6 +6,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +35,7 @@ public class TaskActivity extends AppCompatActivity {
     private FloatingActionButton taskFab;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
+    private final int SENSOR_SENSITIVITY = 2;
     static List<Task> tasks = new ArrayList<Task>();
 
     @Override
@@ -41,11 +46,36 @@ public class TaskActivity extends AppCompatActivity {
             Notification notify=new Notification.Builder(getApplicationContext()).setContentTitle("Tarefas").setContentText("Você ainda tem tarefas por fazer").setSmallIcon(R.drawable.ic_playlist_add_check_black_24dp).build();
 
             notify.flags = Notification.FLAG_HIGH_PRIORITY;
-
             NM.notify(0,notify);
+
         }
 
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override

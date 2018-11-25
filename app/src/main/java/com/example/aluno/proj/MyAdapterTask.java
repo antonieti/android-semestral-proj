@@ -1,5 +1,9 @@
 package com.example.aluno.proj;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,18 +29,19 @@ public class MyAdapterTask extends RecyclerView.Adapter<MyAdapterTask.MyViewHold
 
         public CheckBox checkTask;
 
+
         public MyViewHolder(final View v) {
             super(v);
             checkTask = (CheckBox) v.findViewById(R.id.text_view);
-            checkTask.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            checkTask.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Task task = findTask(checkTask.getText().toString());
                     tasks.remove(task);
                 }
             });
-
         }
+
         private Task findTask(String name) {
             for (Task task : tasks) {
                 if ((task!=null) && StringUtils.isNotEmpty(task.getName()) && task.getName().equals(name)) {
