@@ -7,86 +7,95 @@
     android:id="@+id/add_calendario"
     tools:context=".MainActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/cal_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:srcCompat="@mipmap/manutencao_foreground"
+        tools:layout_editor_absoluteX="0dp" />
+
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/rectangle"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/menu"
-            android:layout_height="50dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/rectangle"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="CalendApp"
-                android:gravity="left|center_vertical"
-                android:textSize="20sp"
-                android:drawableLeft="@drawable/ic_date"
-                android:paddingLeft="20dp"
-                android:textColor="#FFF"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/rectangle">
-
-            <TextView
-                android:id="@+id/cal_calTab"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="CALENDARIO"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                android:gravity="center_vertical|center"
-                android:textColor="#FFF"
-                android:background="@drawable/border_bottom"/>
-            <TextView
-                android:id="@+id/cal_taskTab"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="TAREFAS"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center"
-                android:textColor="#FFF" />
-            <TextView
-                android:id="@+id/cal_habitTab"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="HABITOS"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center"
-                android:textColor="#FFF"/>
-
-        </LinearLayout>
-
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/google_api">
-        </ImageView>
+            android:drawableLeft="@drawable/ic_date"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:text="CalendApp"
+            android:textColor="#FFF"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="60dp"
+        android:background="@drawable/rectangle"
+        android:orientation="horizontal">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/cal_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="30dp"
-            android:src="@drawable/ic_add" />
-    </android.support.design.widget.CoordinatorLayout>
+        <TextView
+            android:id="@+id/cal_calTab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border_bottom"
+            android:gravity="center_vertical|center"
+            android:text="CALENDARIO"
+            android:textAlignment="center"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/cal_taskTab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center"
+            android:text="TAREFAS"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/cal_habitTab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center"
+            android:text="HABITOS"
+            android:textColor="#FFF" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Calendário ainda não está pronto, aproveite e explore as tarefas e os hábitos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </android.support.constraint.ConstraintLayout>

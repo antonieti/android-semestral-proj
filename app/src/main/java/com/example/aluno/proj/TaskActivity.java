@@ -3,6 +3,7 @@ package com.example.aluno.proj;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,16 +37,15 @@ public class TaskActivity extends AppCompatActivity {
     private TextView calText;
     private TextView habito;
     private FloatingActionButton taskFab;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private static RecyclerView mRecyclerView;
+    private static RecyclerView.Adapter mAdapter;
     private final int SENSOR_SENSITIVITY = 2;
     static List<Task> tasks = new ArrayList<Task>();
 
     @Override
     protected void onStart() {
         super.onStart();
-        TaskRepository taskRepository = new TaskDAO(getApplicationContext());
-        tasks = taskRepository.getAll()
+
         if (tasks.size()>0){
             NotificationManager NM = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             Notification notify=new Notification.Builder(getApplicationContext()).setContentTitle("Tarefas").setContentText("Você ainda tem tarefas por fazer").setSmallIcon(R.drawable.ic_playlist_add_check_black_24dp).build();
@@ -63,9 +63,17 @@ public class TaskActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    public static void loadTasks(Context context){
+        TaskRepository taskRepository = new TaskDAO(context);
+        tasks = taskRepository.getAll();
+        mAdapter = new MyAdapterTask(tasks);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     @Override
@@ -87,17 +95,13 @@ public class TaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
-
-
-
-
         mRecyclerView = (RecyclerView) findViewById(R.id.task_list);
-        mAdapter = new MyAdapterTask(tasks);
+        loadTasks(getApplicationContext());
+
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+
 
         this.habitText = findViewById(R.id.task_habitTab);
         this.calText = findViewById(R.id.task_calTab);
@@ -121,7 +125,7 @@ public class TaskActivity extends AppCompatActivity {
         this.taskFab = findViewById(R.id.task_fab);
 
         taskFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 final EditText task_txt = new EditText(TaskActivity.this);
 
                 new AlertDialog.Builder(TaskActivity.this)
@@ -135,7 +139,10 @@ public class TaskActivity extends AppCompatActivity {
                                 TaskRepository taskRepository = new TaskDAO(getApplicationContext());
                                 String result = taskRepository.insert(task);
                                 Toast.makeText(TaskActivity.this, result, Toast.LENGTH_SHORT).show();
-                                onStart();
+
+                                loadTasks(getApplicationContext());
+                                mAdapter.notifyDataSetChanged();
+
 //                                TextView text = findViewById(R.id.tarefa1);
 //                                text.setText(task);
                             }

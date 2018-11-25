@@ -5,8 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.aluno.proj.repository.TaskDatabase;
-import com.example.aluno.proj.repository.TaskEnum;
+import com.example.aluno.proj.repository.dbhelpers.DBHelper;
+
+import com.example.aluno.proj.repository.enums.TaskEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +18,10 @@ import br.edu.ifsp.cmp.repository.TaskRepository;
 public class TaskDAO implements TaskRepository {
 
     private SQLiteDatabase db;
-    private TaskDatabase taskDatabase;
+    private DBHelper taskDatabase;
 
     public TaskDAO(Context context){
-        taskDatabase = new TaskDatabase(context);
+        taskDatabase = new DBHelper(context);
     }
 
     @Override
@@ -41,18 +42,35 @@ public class TaskDAO implements TaskRepository {
 
     }
 
+    public void update(Task task){
+        ContentValues valores;
+        String where;
+
+        db = taskDatabase.getWritableDatabase();
+
+        where = TaskEnum.name.toString() + "= '" + task.getName()+"'";
+
+        valores = new ContentValues();
+        valores.put(TaskEnum.name.toString(), task.getName());
+        valores.put(TaskEnum.id.toString(), task.getId());
+        valores.put(TaskEnum.status.toString(),1);
+
+        db.update(TaskEnum.task.toString(),valores,where,null);
+        db.close();
+    }
     @Override
     public void remove(Task task) {
 
     }
 
     @Override
-    public Task search(Task task) {
+    public Task searchByName(String name) {
         return null;
     }
 
     @Override
-    public List<Task> getAll(Task task) {
+    public List<Task> getAll() {
+        db = taskDatabase.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TaskEnum.task.toString()+ " where "+ TaskEnum.status+ "!= 1", null);
         List<Task> tasks = new ArrayList<>();
 

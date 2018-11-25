@@ -8,12 +8,15 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.aluno.proj.repository.dao.HabitDAO;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
 
 import br.edu.ifsp.cmp.entities.Habit;
+import br.edu.ifsp.cmp.repository.HabitRepository;
 import br.edu.ifsp.cmp.repository.TaskRepository;
 
 public class MyAdapterHabit extends RecyclerView.Adapter<MyAdapterHabit.MyViewHolder> {
@@ -41,11 +44,14 @@ public class MyAdapterHabit extends RecyclerView.Adapter<MyAdapterHabit.MyViewHo
                     Habit habitSearched = null;
 
                     habitSearched = findHabit(habit.getText().toString());
-                    habitSearched.incrementProgressCount();
+                    HabitRepository habitRepository=new HabitDAO(v.getContext());
+                    String result = habitRepository.update(habitSearched);
                     progressBar.setProgress(habitSearched.getProgressCount());
-                    if(habitSearched.getGoalCount()==habitSearched.getProgressCount()){
-                        habitList.remove(habitSearched);
+                    if(progressBar.getProgress()==progressBar.getMax()){
+                        habitRepository.remove(habitSearched);
                     }
+                    HabitActivity.loadHabits(v.getContext());
+
 
                 }
             });
@@ -55,7 +61,9 @@ public class MyAdapterHabit extends RecyclerView.Adapter<MyAdapterHabit.MyViewHo
                 @Override
                 public void onClick(View v) {
                     Habit habitSearched = findHabit(habit.getText().toString());
-                    habitList.remove(habitSearched);
+                    HabitRepository habitRepository = new HabitDAO(v.getContext());
+                    habitRepository.remove(habitSearched);
+                    HabitActivity.loadHabits(v.getContext());
 
                 }
             });

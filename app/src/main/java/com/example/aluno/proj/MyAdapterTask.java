@@ -1,25 +1,25 @@
 package com.example.aluno.proj;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
+
+
+import com.example.aluno.proj.repository.dao.TaskDAO;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-import br.edu.ifsp.cmp.entities.Habit;
+
 import br.edu.ifsp.cmp.entities.Task;
+import br.edu.ifsp.cmp.repository.TaskRepository;
+
+
 
 public class MyAdapterTask extends RecyclerView.Adapter<MyAdapterTask.MyViewHolder> {
 
@@ -37,7 +37,10 @@ public class MyAdapterTask extends RecyclerView.Adapter<MyAdapterTask.MyViewHold
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Task task = findTask(checkTask.getText().toString());
-                    tasks.remove(task);
+                    TaskRepository taskRepository = new TaskDAO(v.getContext());
+                    ((TaskDAO) taskRepository).update(task);
+
+                    TaskActivity.loadTasks(v.getContext());
                 }
             });
         }

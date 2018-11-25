@@ -22,25 +22,37 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aluno.proj.repository.dao.HabitDAO;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ifsp.cmp.entities.Habit;
+import br.edu.ifsp.cmp.repository.HabitRepository;
 
 public class HabitActivity extends AppCompatActivity {
 
     private TextView calText;
     private TextView taskText;
     private FloatingActionButton habitFab;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private static RecyclerView mRecyclerView;
+    private static RecyclerView.Adapter mAdapter;
     public static List<Habit> habits = new ArrayList<Habit>();
-    private static final int SENSOR_SENSITIVITY = 4;
 
+
+    public static void loadHabits(Context context){
+        HabitRepository habitRepository = new HabitDAO(context);
+        habits = habitRepository.getAll();
+        mAdapter = new MyAdapterHabit(habits);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
+        loadHabits(getApplicationContext());
+
     }
     @Override
     protected void onStop() {
@@ -75,12 +87,11 @@ public class HabitActivity extends AppCompatActivity {
         this.calText = findViewById(R.id.habit_calTab);
         this.taskText = findViewById(R.id.habit_taskTab);
         mRecyclerView = (RecyclerView) findViewById(R.id.habit_recycler);
-        mAdapter = new MyAdapterHabit(habits);
 
+        loadHabits(getApplicationContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+
 
 
 
@@ -128,7 +139,10 @@ public class HabitActivity extends AppCompatActivity {
                                 String nomeTask = habitNameTxt.getText().toString();
                                 Short goalTimes = Short.parseShort(goalCountTxt.getText().toString());
                                 Habit habit = Habit.builder().name(nomeTask).goalCount(goalTimes).build();
-                                habits.add(habit);
+                                HabitRepository habitRepository=new HabitDAO(getApplicationContext());
+                                String result = habitRepository.insert(habit);
+                                loadHabits(getApplicationContext());
+                                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 //                                TextView text = findViewById(R.id.tarefa1);
 //                                text.setText(task);
                             }
