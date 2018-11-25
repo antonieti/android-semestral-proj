@@ -21,10 +21,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aluno.proj.repository.dao.TaskDAO;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ifsp.cmp.entities.Task;
+import br.edu.ifsp.cmp.repository.TaskRepository;
 
 
 public class TaskActivity extends AppCompatActivity {
@@ -41,6 +44,8 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        TaskRepository taskRepository = new TaskDAO(getApplicationContext());
+        tasks = taskRepository.getAll()
         if (tasks.size()>0){
             NotificationManager NM = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             Notification notify=new Notification.Builder(getApplicationContext()).setContentTitle("Tarefas").setContentText("Você ainda tem tarefas por fazer").setSmallIcon(R.drawable.ic_playlist_add_check_black_24dp).build();
@@ -127,7 +132,10 @@ public class TaskActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 String nomeTask = task_txt.getText().toString();
                                 Task task = Task.builder().name(nomeTask).build();
-                                tasks.add(task);
+                                TaskRepository taskRepository = new TaskDAO(getApplicationContext());
+                                String result = taskRepository.insert(task);
+                                Toast.makeText(TaskActivity.this, result, Toast.LENGTH_SHORT).show();
+                                onStart();
 //                                TextView text = findViewById(R.id.tarefa1);
 //                                text.setText(task);
                             }
