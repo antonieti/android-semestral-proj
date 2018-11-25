@@ -1,8 +1,11 @@
 package com.example.aluno.proj;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +13,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import br.edu.ifsp.cmp.entities.Task;
+
 
 public class TaskActivity extends AppCompatActivity {
 
@@ -23,32 +30,42 @@ public class TaskActivity extends AppCompatActivity {
     private FloatingActionButton taskFab;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
-    //private Habit habito;
+    static List<Task> tasks = new ArrayList<Task>();
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (tasks.size()>0){
+            NotificationManager NM = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            Notification notify=new Notification.Builder(getApplicationContext()).setContentTitle("Tarefas").setContentText("Você ainda tem tarefas por fazer").setSmallIcon(R.drawable.ic_playlist_add_check_black_24dp).build();
+
+            notify.flags = Notification.FLAG_HIGH_PRIORITY;
+
+            NM.notify(0,notify);
+        }
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.task_list);
+        mAdapter = new MyAdapterTask(tasks);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(null);
         mRecyclerView.setAdapter(mAdapter);
-
+        mAdapter.notifyDataSetChanged();
 
         this.habitText = findViewById(R.id.task_habitTab);
         this.calText = findViewById(R.id.task_calTab);
-        this.habito = findViewById(R.id.tarefa1);
 
         habitText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,9 +95,11 @@ public class TaskActivity extends AppCompatActivity {
                         .setView(task_txt)
                         .setPositiveButton("Inserir", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                String task = task_txt.getText().toString();
-                                TextView text = findViewById(R.id.tarefa1);
-                                text.setText(task);
+                                String nomeTask = task_txt.getText().toString();
+                                Task task = Task.builder().name(nomeTask).build();
+                                tasks.add(task);
+//                                TextView text = findViewById(R.id.tarefa1);
+//                                text.setText(task);
                             }
                         })
                         .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -90,5 +109,8 @@ public class TaskActivity extends AppCompatActivity {
                         .show();
             }
         });
+
+
     }
 }
+
