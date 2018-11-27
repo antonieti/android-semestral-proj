@@ -24,6 +24,8 @@ import java.util.List;
 import br.edu.ifsp.cmp.entities.Task;
 import br.edu.ifsp.cmp.repository.TaskRepository;
 
+import static com.ifsp.aluno.proj.MainActivity.mInterstialAd;
+
 
 public class TaskActivity extends AppCompatActivity {
 
@@ -39,6 +41,10 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        if(mInterstialAd.isLoaded()){
+            mInterstialAd.show();
+        }
 
         if (tasks.size()>0){
             NotificationManager NM = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);

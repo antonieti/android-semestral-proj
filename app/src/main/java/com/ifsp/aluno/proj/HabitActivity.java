@@ -24,6 +24,8 @@ import java.util.List;
 import br.edu.ifsp.cmp.entities.Habit;
 import br.edu.ifsp.cmp.repository.HabitRepository;
 
+import static com.ifsp.aluno.proj.MainActivity.mInterstialAd;
+
 public class HabitActivity extends AppCompatActivity {
 
     private TextView calText;
@@ -45,6 +47,9 @@ public class HabitActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if(mInterstialAd.isLoaded()){
+            mInterstialAd.show();
+        }
         loadHabits(getApplicationContext());
 
     }

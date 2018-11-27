@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ifsp.aluno.proj">
 
+
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"></uses-permission>
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,6 +21,11 @@
         </activity>
         <activity android:name="com.ifsp.aluno.proj.HabitActivity" />
         <activity android:name="com.ifsp.aluno.proj.TaskActivity"></activity>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9888849565410527~4003500094"/>
     </application>
+
+
 
 </manifest>

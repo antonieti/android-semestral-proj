@@ -11,17 +11,33 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView habitText;
     private TextView taskText;
     private FloatingActionButton calFab;
+    public static InterstitialAd mInterstialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MobileAds.initialize(this,"ca-app-pub-9888849565410527~4003500094");
+        mInterstialAd = new InterstitialAd(this);
+        mInterstialAd.setAdUnitId("ca-app-pub-9888849565410527/8761002751");
+        mInterstialAd.loadAd(new AdRequest.Builder().build());
 
+        mInterstialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                mInterstialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
         this.habitText = findViewById(R.id.cal_habitTab);
         this.taskText = findViewById(R.id.cal_taskTab);
 
